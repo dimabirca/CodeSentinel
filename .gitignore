@@ -1,0 +1,17 @@
+build/
+dist/
+.vs/
+.vscode/
+out/
+CMakeUserPresets.json
+*.user
+*.suo
+*.obj
+*.pdb
+*.ilk
+*.exe
+
+# Diagnosticos locais
+cmake-diagnostico.txt
+
+/build-codesentinel/

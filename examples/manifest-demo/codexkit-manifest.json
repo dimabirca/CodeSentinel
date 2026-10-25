@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "algorithm": "SHA-256",
+  "files": [
+    {
+      "path": "hello.txt",
+      "sha256": "e3da477b460fd81658cb1c3eb2578e26dc95d2f1a5663375d60c0a95f5c336be"
+    },
+    {
+      "path": "readme.md",
+      "sha256": "71655088568a96db141f260a507a0a1f9b9410d22aaf90663eef6657691b9aca"
+    }
+  ]
+}
