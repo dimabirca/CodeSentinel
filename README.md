@@ -132,7 +132,7 @@ The executable will be available at:
 
 
 
-`build\\Release\\codesentinel.exe`
+`build\\\\Release\\\\codesentinel.exe`
 
 
 
@@ -146,7 +146,7 @@ Display the version:
 
 ```powershell
 
-.\\build\\Release\\codesentinel.exe --version
+.\\\\build\\\\Release\\\\codesentinel.exe --version
 
 ```
 
@@ -158,7 +158,7 @@ Display available commands:
 
 ```powershell
 
-.\\build\\Release\\codesentinel.exe --help
+.\\\\build\\\\Release\\\\codesentinel.exe --help
 
 ```
 
@@ -170,7 +170,7 @@ Display available commands:
 
 ```powershell
 
-.\\build\\Release\\codesentinel.exe scan .
+.\\\\build\\\\Release\\\\codesentinel.exe scan .
 
 ```
 
@@ -182,7 +182,7 @@ Display available commands:
 
 ```powershell
 
-.\\build\\Release\\codesentinel.exe scan . --json .\\report.json
+.\\\\build\\\\Release\\\\codesentinel.exe scan . --json .\\\\report.json
 
 ```
 
@@ -194,7 +194,7 @@ Display available commands:
 
 ```powershell
 
-.\\build\\Release\\codesentinel.exe hash .\\README.md
+.\\\\build\\\\Release\\\\codesentinel.exe hash .\\\\README.md
 
 ```
 
@@ -206,7 +206,7 @@ Display available commands:
 
 ```powershell
 
-.\\build\\Release\\codesentinel.exe manifest .\\examples\\manifest-demo
+.\\\\build\\\\Release\\\\codesentinel.exe manifest .\\\\examples\\\\manifest-demo
 
 ```
 
@@ -218,7 +218,7 @@ Display available commands:
 
 ```powershell
 
-.\\build\\Release\\codesentinel.exe verify .\\examples\\manifest-demo
+.\\\\build\\\\Release\\\\codesentinel.exe verify .\\\\examples\\\\manifest-demo
 
 ```
 
@@ -408,11 +408,15 @@ These items are development goals, not features included in v0.2.0.
 
 
 
-A license has not yet been selected.
+CodeSentinel is released under the MIT License.
 
 
 
-Until a license is added, the repository's public availability does not automatically grant permission to reuse, modify, or redistribute the code.
+Copyright (c) 2026 Dimitru Birca.
+
+
+
+See the \[LICENSE](LICENSE) file for the full license text.
 
 
 
