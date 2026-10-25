@@ -6,71 +6,93 @@
 
 
 
-CodeSentinel é uma ferramenta de linha de comandos (CLI), desenvolvida em C++17, para analisar a estrutura de projetos de software e verificar a integridade de ficheiros.
+CodeSentinel is a modular command-line tool written in C++17 for analyzing software project structures and verifying file integrity.
 
 
 
-Foi concebida para analisar projetos de diferentes linguagens de programação, independentemente da linguagem utilizada na sua implementação.
+It is designed to inspect projects written in different programming languages, regardless of the language used to implement the tool itself.
 
 
 
-\## Estado do projeto
+\## Project Status
 
 
 
-\*\*Versão atual: v0.2.0\*\*
+\*\*Current version: v0.2.0\*\*
 
 
 
-O CodeSentinel está disponível para Windows e inclui análise estrutural de projetos, exportação JSON, cálculo de hashes SHA-256 e verificação de integridade.
+\*\*Platform:\*\* Windows (x64)
 
 
 
-Funcionalidades como suporte para Linux/macOS, integração MCP, API REST, análise semântica e auditoria de vulnerabilidades estão previstas para desenvolvimento futuro e ainda não estão implementadas.
+CodeSentinel currently provides project scanning, programming language detection by file extension, JSON report generation, SHA-256 hashing, integrity manifests, and file integrity verification.
 
 
 
-\## Funcionalidades
+Linux/macOS support, MCP integration, REST APIs, semantic analysis, and vulnerability auditing are potential future capabilities and are not available in this release.
 
 
 
-\- `scan <pasta>` — analisa ficheiros e diretórios e identifica linguagens através de extensões conhecidas.
-
-\- `scan <pasta> --json <ficheiro>` — exporta um relatório JSON com estatísticas, estado e exclusões.
-
-\- `hash <ficheiro>` — calcula o hash SHA-256 de um ficheiro.
-
-\- `manifest <pasta>` — gera um manifesto de integridade com hashes SHA-256.
-
-\- `verify <pasta>` — verifica a integridade dos ficheiros através de um manifesto.
-
-\- `--help` — apresenta os comandos disponíveis.
-
-\- `--version` — apresenta a versão da ferramenta.
+\## Features
 
 
 
-\## Requisitos
+\- \*\*Project scanning:\*\* Recursively inspect files and directories.
+
+\- \*\*Language detection:\*\* Identify recognized programming languages using file extensions.
+
+\- \*\*JSON reports:\*\* Export structured project analysis results.
+
+\- \*\*SHA-256 hashing:\*\* Calculate cryptographic hashes for individual files.
+
+\- \*\*Integrity manifests:\*\* Generate a baseline of file hashes for a project.
+
+\- \*\*Integrity verification:\*\* Detect modified, added, and removed files.
+
+\- \*\*Safety controls:\*\* Apply directory exclusions, traversal limits, and selected filesystem protections.
+
+\- \*\*Automated tests:\*\* Five test suites covering the scanner, hashing, manifests, verification, and CLI.
+
+
+
+\## Requirements
 
 
 
 \- Windows
 
-\- Visual Studio 2022 com ferramentas de desenvolvimento C++ (MSVC)
+\- Visual Studio 2022 with C++ development tools (MSVC)
 
-\- CMake
+\- CMake 3.16 or later
 
-\- PowerShell
-
-\- Ligação à Internet na configuração inicial, caso seja necessário obter `nlohmann/json` v3.11.3
+\- An internet connection for the initial dependency download, when required
 
 
 
-\## Compilação e testes
+The project uses C++17 and nlohmann/json v3.11.3.
 
 
 
-Na raiz do projeto, executa:
+\## Build Instructions
+
+
+
+Clone the repository:
+
+
+
+```powershell
+
+git clone https://github.com/dimabirca/CodeSentinel.git
+
+cd CodeSentinel
+
+```
+
+
+
+Configure the project:
 
 
 
@@ -78,11 +100,27 @@ Na raiz do projeto, executa:
 
 cmake -S . -B build -G "Visual Studio 17 2022" -A x64
 
-cmake --build build --config Debug
+```
 
-ctest --test-dir build -C Debug --output-on-failure
+
+
+Build the Release configuration:
+
+
+
+```powershell
 
 cmake --build build --config Release
+
+```
+
+
+
+Run the automated tests:
+
+
+
+```powershell
 
 ctest --test-dir build -C Release --output-on-failure
 
@@ -90,89 +128,147 @@ ctest --test-dir build -C Release --output-on-failure
 
 
 
-Os executáveis são gerados em:
+The executable will be available at:
 
 
 
-\- `build\\Debug\\codesentinel.exe`
-
-\- `build\\Release\\codesentinel.exe`
+`build\\Release\\codesentinel.exe`
 
 
 
-\## Exemplos de utilização
+\## Usage
+
+
+
+Display the version:
 
 
 
 ```powershell
 
-.\\build\\Debug\\codesentinel.exe --version
-
-.\\build\\Debug\\codesentinel.exe --help
-
-.\\build\\Debug\\codesentinel.exe scan .
-
-.\\build\\Debug\\codesentinel.exe scan .\\examples\\manifest-demo --json .\\relatorio.json
-
-.\\build\\Debug\\codesentinel.exe hash .\\README.md
-
-.\\build\\Debug\\codesentinel.exe manifest .\\examples\\manifest-demo
-
-.\\build\\Debug\\codesentinel.exe verify .\\examples\\manifest-demo
+.\\build\\Release\\codesentinel.exe --version
 
 ```
 
 
 
-O comando `verify` utiliza os seguintes códigos de saída:
+Display available commands:
 
 
 
-| Código | Significado |
+```powershell
+
+.\\build\\Release\\codesentinel.exe --help
+
+```
+
+
+
+\### Scan a Project
+
+
+
+```powershell
+
+.\\build\\Release\\codesentinel.exe scan .
+
+```
+
+
+
+\### Export a JSON Report
+
+
+
+```powershell
+
+.\\build\\Release\\codesentinel.exe scan . --json .\\report.json
+
+```
+
+
+
+\### Calculate a SHA-256 Hash
+
+
+
+```powershell
+
+.\\build\\Release\\codesentinel.exe hash .\\README.md
+
+```
+
+
+
+\### Generate an Integrity Manifest
+
+
+
+```powershell
+
+.\\build\\Release\\codesentinel.exe manifest .\\examples\\manifest-demo
+
+```
+
+
+
+\### Verify File Integrity
+
+
+
+```powershell
+
+.\\build\\Release\\codesentinel.exe verify .\\examples\\manifest-demo
+
+```
+
+
+
+The verification command compares the current project files against the stored integrity manifest.
+
+
+
+\## Verification Exit Codes
+
+
+
+| Exit code | Meaning |
 
 |---|---|
 
-| `0` | Integridade confirmada |
+| `0` | Integrity verified |
 
-| `1` | Foram detetadas alterações |
+| `1` | File changes detected |
 
-| `2` | Erro ou verificação incompleta |
-
-
-
-\## Formato do manifesto
+| `2` | Error or incomplete verification |
 
 
 
-O CodeSentinel utiliza atualmente o ficheiro `codexkit-manifest.json` como nome predefinido do manifesto de integridade.
+\## Integrity Manifest Format
 
 
 
-Este nome faz parte da implementação atual e deve ser preservado para garantir o funcionamento dos comandos `manifest` e `verify`.
+The current default integrity manifest filename is:
 
 
 
-\## Segurança e limitações
+`codexkit-manifest.json`
 
 
 
-\- O scanner aplica limites de profundidade e número de ficheiros.
-
-\- Diretórios como `.git`, `build`, `node\_modules`, `.vs` e `.vscode` são ignorados.
-
-\- A exportação JSON inclui proteções contra determinados destinos com reparse points e utiliza ficheiros temporários.
-
-\- Os hashes SHA-256 permitem detetar alterações, mas não autenticam a origem dos manifestos.
-
-\- Alterações simultâneas aos ficheiros podem afetar a consistência das verificações.
-
-\- A deteção de linguagens baseia-se em extensões reconhecidas.
-
-\- A ferramenta não substitui uma auditoria de segurança especializada.
+This filename is part of the current technical format and is retained for compatibility with the existing implementation.
 
 
 
-\## Estrutura do projeto
+Integrity manifests store file information and SHA-256 hashes used to detect changes.
+
+
+
+\*\*Important:\*\* SHA-256 integrity verification detects file modifications but does not authenticate the origin of a manifest. A trusted baseline must be protected independently.
+
+
+
+\## Project Structure
 
 
 
@@ -180,33 +276,149 @@ Este nome faz parte da implementação atual e deve ser preservado para garantir
 
 CodeSentinel/
 
-├── include/codesentinel/    Interfaces dos módulos
+├── include/
 
-├── src/                     Implementação e CLI
+│   └── codesentinel/
 
-├── tests/                   Testes automatizados
+│       ├── inspector/
 
-├── examples/                Exemplos de utilização
+│       └── integrity/
 
-├── docs/                    Documentação
+├── src/
 
-├── CMakeLists.txt            Configuração de compilação
+│   ├── inspector/
 
-└── README.md                Documentação principal
+│   ├── integrity/
+
+│   └── main.cpp
+
+├── tests/
+
+├── examples/
+
+├── docs/
+
+├── CMakeLists.txt
+
+└── README.md
 
 ```
 
 
 
-\## Desenvolvimento futuro
+\## Architecture
 
 
 
-O projeto poderá evoluir com reconhecimento de mais linguagens, identificação de tecnologias e frameworks, relatórios de análise mais detalhados e interfaces de integração para outras ferramentas.
+CodeSentinel separates its functionality into three main areas:
+
+
+
+\*\*Project Inspector\*\* — Project structure scanning, language detection, and JSON reporting.
+
+
+
+\*\*Integrity Guard\*\* — SHA-256 hashing, manifest generation, and integrity verification.
+
+
+
+\*\*Command-Line Interface\*\* — User-facing commands and execution status reporting.
+
+
+
+For more information, see \[Architecture Documentation](docs/ARCHITECTURE.md).
+
+
+
+\## Testing
+
+
+
+The project contains five automated test suites:
+
+
+
+1\. ScannerTests
+
+2\. IntegrityTests
+
+3\. ManifestTests
+
+4\. VerifierTests
+
+5\. CliTests
+
+
+
+All five suites passed during local Windows Release validation of v0.2.0.
+
+
+
+\## Security and Limitations
+
+
+
+\- Programming languages are identified using known file extensions, not semantic analysis.
+
+\- Directory scanning applies exclusion rules and traversal limits.
+
+\- Some filesystem operations include protections against reparse-point-related risks.
+
+\- JSON report writing uses temporary files and additional destination checks.
+
+\- Concurrent file modifications may affect integrity verification results.
+
+\- Integrity manifests are not digitally signed.
+
+\- The tool does not replace a professional security audit.
+
+\- This release requires Windows.
+
+
+
+\## Roadmap
+
+
+
+Potential future development areas include:
+
+
+
+\- Additional programming language recognition.
+
+\- Framework and technology detection.
+
+\- More detailed project analysis reports.
+
+\- Linux and macOS compatibility.
+
+\- MCP integration.
+
+\- REST API support.
+
+\- Extended security analysis.
+
+
+
+These items are development goals, not features included in v0.2.0.
+
+
+
+\## License
+
+
+
+A license has not yet been selected.
+
+
+
+Until a license is added, the repository's public availability does not automatically grant permission to reuse, modify, or redistribute the code.
+
+
+
+\---
 
 
 
 \*\*CodeSentinel — Universal Project Analysis \& Integrity Toolkit\*\*
-
-
 
